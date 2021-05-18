@@ -61,3 +61,4 @@
 Makefile
 Makefile.in
 stamp-h1
+/win32/djvulibre/.vs/
