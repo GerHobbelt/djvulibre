@@ -157,7 +157,7 @@ GP<GStringRep>
 GStringRep::UTF8::create(const char *s)
 {
   GStringRep::UTF8 dummy;
-  return dummy.strdup(s);
+  return dummy.dupstr(s);
 }
 
 GP<GStringRep> 
@@ -316,7 +316,7 @@ public:
     // Create an empty string
   static GP<GStringRep> create(const unsigned int sz = 0);
 
-    // Create a strdup string.
+    // Create a dupstr string.
   static GP<GStringRep> create(const char *s);
 
   // Creates by appending to the current string
@@ -328,7 +328,7 @@ public:
   static GP<GStringRep> create( const char *s1, const GP<GStringRep> &s2);
   static GP<GStringRep> create(const char *s1,const char *s2);
 
-    // Create with a strdup and substr operation.
+    // Create with a dupstr and substr operation.
   static GP<GStringRep> create(
     const char *s,const int start,const int length=(-1));
   static GP<GStringRep> create(
@@ -360,12 +360,12 @@ GStringRep::Native::create(const unsigned int sz)
   return GStringRep::create(sz,(GStringRep::Native *)0);
 }
 
-    // Create a strdup string.
+    // Create a dupstr string.
 GP<GStringRep>
 GStringRep::Native::create(const char *s)
 {
   GStringRep::Native dummy;
-  return dummy.strdup(s);
+  return dummy.dupstr(s);
 }
 
 GP<GStringRep>
@@ -1011,7 +1011,7 @@ GStringRep::create(const unsigned int sz, TYPE *)
 }
 
 GP<GStringRep>
-GStringRep::strdup(const char *s) const
+GStringRep::dupstr(const char *s) const
 {
   GP<GStringRep> retval;
   const int length=s?strlen(s):0;
@@ -1109,7 +1109,7 @@ GStringRep::substr(const uint16_t *s,const int start,const int len) const
         ptr=UCS4toString(w,ptr,&ps);
       }
       ptr[0]=0;
-      retval = strdup( (const char *)buf );
+      retval = dupstr( (const char *)buf );
     }
   }
   return retval;
@@ -1142,7 +1142,7 @@ GStringRep::substr(const uint32_t *s,const int start,const int len) const
         ptr=UCS4toString(s[0],ptr,&ps);
       }
       ptr[0]=0;
-      retval = strdup( (const char *)buf );
+      retval = dupstr( (const char *)buf );
     }
   }
   return retval;
@@ -1449,7 +1449,7 @@ GStringRep::toEscaped( const bool tosevenbit ) const
   if(modified)
   {
     strcpy(retptr,start);
-    retval=strdup( ret );
+    retval=dupstr( ret );
   }else
   {
     retval=const_cast<GStringRep *>(this);
@@ -1636,7 +1636,7 @@ GStringRep::vformat(va_list args) const
         G_THROW( ERR_MSG("GString.overwrite") );
       }
 #endif
-    retval=strdup((const char *)buffer);
+    retval=dupstr((const char *)buffer);
   }
   // Go altering the string
   return retval;
@@ -2095,12 +2095,12 @@ GStringRep::concat( const char *s1, const GP<GStringRep> &s2) const
         retval=concat(s1,retval->data);
       }else
       {
-        retval=strdup(s1);
+        retval=dupstr(s1);
       }
     }
   }else if(s1 && s1[0])
   {
-    retval=strdup(s1);
+    retval=dupstr(s1);
   }
   return retval;
 }
@@ -2121,12 +2121,12 @@ GStringRep::concat( const GP<GStringRep> &s1,const char *s2) const
         retval=retval->append(s2);
       }else
       {
-        retval=strdup(s2);
+        retval=dupstr(s2);
       }
     }
   }else if(s2 && s2[0])
   {
-    retval=strdup(s2);
+    retval=dupstr(s2);
   }
   return retval;
 }
@@ -2265,7 +2265,7 @@ GStringRep::UTF8::toLong(
   {
     GP<GStringRep> ptr = GStringRep::UTF8::create();
     endpos=(-1);
-    ptr=ptr->strdup(data+pos);
+    ptr=ptr->dupstr(data+pos);
     if(ptr)
       ptr=ptr->toNative(NOT_ESCAPED);
     if(ptr)
@@ -2275,7 +2275,7 @@ GStringRep::UTF8::toLong(
       if(xendpos> 0)
       {
         endpos=(int)size;
-        ptr=ptr->strdup(data+xendpos);
+        ptr=ptr->dupstr(data+xendpos);
         if(ptr)
         {
           ptr=ptr->toUTF8(true);
@@ -2311,7 +2311,7 @@ GStringRep::UTF8::toULong(
   {
     GP<GStringRep> ptr = GStringRep::UTF8::create();
     endpos=(-1);
-    ptr=ptr->strdup(data+pos);
+    ptr=ptr->dupstr(data+pos);
     if(ptr)
       ptr=ptr->toNative(NOT_ESCAPED);
     if(ptr)
@@ -2321,7 +2321,7 @@ GStringRep::UTF8::toULong(
       if(xendpos> 0)
       {
         endpos=(int)size;
-        ptr=ptr->strdup(data+xendpos);
+        ptr=ptr->dupstr(data+xendpos);
         if(ptr)
         {
           ptr=ptr->toUTF8(true);
@@ -2356,7 +2356,7 @@ GStringRep::UTF8::toDouble(const int pos, int &endpos) const
   {
     GP<GStringRep> ptr = GStringRep::UTF8::create();
     endpos=(-1);
-    ptr=ptr->strdup(data+pos);
+    ptr=ptr->dupstr(data+pos);
     if(ptr)
       ptr=ptr->toNative(NOT_ESCAPED);
     if(ptr)
@@ -2366,7 +2366,7 @@ GStringRep::UTF8::toDouble(const int pos, int &endpos) const
       if(xendpos >= 0)
       {
         endpos=(int)size;
-        ptr=ptr->strdup(data+xendpos);
+        ptr=ptr->dupstr(data+xendpos);
         if(ptr)
         {
           ptr=ptr->toUTF8(true);

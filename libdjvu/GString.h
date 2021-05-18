@@ -235,8 +235,8 @@ public:
     // Create an empty string.
   template <class TYPE> static GP<GStringRep> create(
     const unsigned int sz,TYPE *);
-    // Creates with a strdup string.
-  GP<GStringRep> strdup(const char *s) const;
+    // Creates with a dupstr string.
+  GP<GStringRep> dupstr(const char *s) const;
 
     // Creates by appending to the current string
   GP<GStringRep> append(const char *s2) const;
@@ -247,7 +247,7 @@ public:
   GP<GStringRep> concat(const GP<GStringRep> &s1,const char *s2) const;
   GP<GStringRep> concat(const char *s1,const char *s2) const;
 
-   /* Creates with a strdup and substr.  Negative values have strlen(s)+1
+   /* Creates with a dupstr and substr.  Negative values have strlen(s)+1
       added to them.
    */
   GP<GStringRep> substr(
@@ -415,7 +415,7 @@ public:
   virtual double toDouble(
     const int pos, int &endpos) const;
 
-    // Create a strdup string.
+    // Create a dupstr string.
   static GP<GStringRep> create(const char *s);
 
    // Creates with a concat operation.
@@ -425,7 +425,7 @@ public:
   static GP<GStringRep> create( const char *s1, const GP<GStringRep> &s2);
   static GP<GStringRep> create( const char *s1,const char *s2);
 
-    // Create with a strdup and substr operation.
+    // Create with a dupstr and substr operation.
   static GP<GStringRep> create(
     const char *s,const int start,const int length=(-1));
 
