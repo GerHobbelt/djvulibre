@@ -198,7 +198,7 @@ DjVuDebug::lock(int lvl, int noindent)
         dbg.format("[T%d] ", dbg.id);
       int ind = dbg.indent;
       char buffer[257];
-      memset(buffer,' ', sizeof(buffer)-1);
+      memset(buffer, ' ', sizeof(buffer)-1);
       buffer[sizeof(buffer)-1] = 0;
       while (ind > (int)sizeof(buffer)-1)
         {
