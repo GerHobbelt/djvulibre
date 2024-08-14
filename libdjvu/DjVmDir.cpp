@@ -86,7 +86,7 @@ DjVmDir::File::create(const GUTF8String &load_name,
   file_ptr->set_load_name(load_name);
   file_ptr->set_save_name(save_name);
   file_ptr->set_title(title);
-  file_ptr->flags=(file_type & TYPE_MASK);
+  file_ptr->flags=(file_type & int(TYPE_MASK));
   return file;
 }
 
